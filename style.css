@@ -1,0 +1,14 @@
+.calc-container {
+    display: flex;
+    flex-flow: column;
+}
+
+.buttons {
+    display: flex;
+    flex-flow: column;
+}
+
+.buttons div {
+    display: flex;
+}
+
