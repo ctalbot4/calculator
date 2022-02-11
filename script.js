@@ -39,23 +39,44 @@ function operate (operator, x, y) {
 const display = document.querySelector('.display');
 const numberButtons = document.querySelectorAll('.number');
 
-clearDisplay(true);
+let number = 0;
+setNumber(number);
 
-function updateDisplay (text) {
-    if (display.textContent === '0') clearDisplay();
-    display.textContent += text;
+function setNumber (n) {
+    number = n;
+    display.textContent = 0;
+}
+
+function appendNumber (digit) {
+    if (number == 0) {
+        setNumber(digit);
+        clearDisplay();
+    }
+    else number += String(digit);
+    number = Number(number);
+    if (!number) {
+        console.log('Number is falsy!');
+        display.textContent = 'Error';
+        return;
+    }
+    display.textContent = number;
+    console.log('Number updated to ' + number + ' with a type of ' + typeof number);
 }
 
 function clearDisplay (zero) {
-    if (zero === true) display.textContent = '0';
-    else display.textContent = '';
+    display.textContent = '';
+    console.log('Cleared display temporarily!');
 }
 
 const clearButton = document.querySelector('.clear');
-clearButton.addEventListener('click', () => clearDisplay(true));
+clearButton.addEventListener('click', () => {
+    setNumber(0);
+    console.log('Cleared display!');
+    }
+);
 
 numberButtons.forEach(button => button.addEventListener('click', handleNumberClick));
 
 function handleNumberClick (e) {
-    updateDisplay(this.textContent);
+    appendNumber(Number(this.textContent));
 }
