@@ -16,14 +16,15 @@ function showDisplay (text) {
     displayContainer.textContent = text;
 }
 
-function appendDisplay (digit) {
+function appendDisplay (digit, convert) {
     if (clearOnNextInput === true) {
         setDisplay(digit);
         clearDisplay();
         clearOnNextInput = false;
     }
     else display += String(digit);
-    setDisplay(Number(display));
+    if (convert) setDisplay(display);
+    else setDisplay(Number(display));
     if (display != 0 && !display) {
         console.log('Number is falsy!');
         showDisplay('Error');
@@ -107,4 +108,26 @@ function handlePMClick () {
         total = display;
     }
     console.log(display + ' ' + total);
+}
+
+const percentButton = document.querySelector('.percent');
+
+percentButton.addEventListener('click', handlePercentClick);
+
+function handlePercentClick () {
+    setDisplay(display / 100);
+    if (lastOperation === undefined) {
+        total = display;
+    }
+    console.log(display + ' ' + total);
+}
+
+const decimalButton = document.querySelector('.decimal');
+
+decimalButton.addEventListener('click', handleDecimalClick);
+
+function handleDecimalClick () {
+    if (!String(display).includes('.')) {
+        appendDisplay('.', true);
+    }
 }
