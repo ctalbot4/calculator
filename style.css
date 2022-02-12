@@ -1,14 +1,95 @@
+@font-face {
+    font-family: "San Francisco Thin";
+    src: url("SF-UI-Display-Thin.otf");
+}
+
+@font-face {
+    font-family: "San Francisco";
+    src: url("SF-UI-Display-Regular.otf");
+}
+
+body {
+    margin: 0;
+    font-family: "San Francisco", sans-serif;
+}
+
 .calc-container {
     display: flex;
     flex-flow: column;
+    width: 390px;
+    height: 844px;
+    padding: 0 30px;
+    box-sizing: border-box;
+    background-color: black;
+    padding-top: 172px;
+}
+
+.display {
+    font-family: "San Francisco Thin", sans-serif;
+    text-align: right;
+    color: white;
+    font-size: 70px;
+    font-weight: lighter;
+    padding-right: 15px;
 }
 
 .buttons {
+    padding-top: 20px;
     display: flex;
     flex-flow: column;
+    gap: 10px;
 }
 
 .buttons div {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
 }
 
+button {
+    width: 67px;
+    height: 67px;
+    border-radius: 100%;
+    border: none;
+    font-family: inherit;
+    font-size: 30px;
+}
+
+.divide {
+    padding-bottom: 4px;
+    font-size: 40px;
+}
+
+.multiply {
+    padding-top: 3px;
+    padding-right: 8px;
+    font-size: 70px;
+}
+
+.plus-minus {
+}
+
+#zero {
+    width: 150px;
+    border-radius: 30px;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.number, .decimal {
+    background-color: rgb(37, 37, 37);
+    color: white;
+}
+
+.operator {
+    background-color: rgb(241, 135, 12);
+    color: white;
+}
+
+/*.operator a:hover {
+    background-color: red;
+}*/
+
+.function {
+    background: rgb(142, 142, 142);
+}
