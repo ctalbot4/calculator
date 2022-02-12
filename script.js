@@ -1,5 +1,27 @@
 const displayContainer = document.querySelector('.display');
 const numberButtons = document.querySelectorAll('.number');
+const addButton = document.querySelector('.add');
+const subtractButton = document.querySelector('.subtract');
+const multiplyButton = document.querySelector('.multiply');
+const divideButton = document.querySelector('.divide');
+
+
+function selectButton (operation, action = 'toggle') {
+    switch (operation) {
+        case 'add':
+            addButton.classList[action]('selected');
+            break;
+        case 'subtract':
+            subtractButton.classList[action]('selected');
+            break;
+        case 'multiply':
+            multiplyButton.classList[action]('selected');
+            break;
+        case 'divide':
+            divideButton.classList[action]('selected');
+            break;
+    }
+}
 
 let lastOperation;
 let total = 0;
@@ -20,6 +42,7 @@ function appendDisplay (digit, convert) {
     if (clearOnNextInput === true) {
         setDisplay(digit);
         clearDisplay();
+        selectButton(lastOperation, 'remove');
         clearOnNextInput = false;
     }
     else display += String(digit);
@@ -75,6 +98,7 @@ function handleOperatorClick (e) {
             default:
                 total = display;
         }
+        selectButton(lastOperation, 'remove');
     }
 
     setDisplay(total);
@@ -95,6 +119,7 @@ function handleOperatorClick (e) {
     else {
         lastOperation = undefined;
     }
+    selectButton(lastOperation, 'add');
     console.log(display + ' ' + total);
 }
 

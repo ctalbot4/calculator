@@ -1,16 +1,18 @@
 @font-face {
     font-family: "San Francisco Thin";
-    src: url("SF-UI-Display-Thin.otf");
+    src: url("fonts/SF-UI-Display-Thin.otf");
 }
 
 @font-face {
     font-family: "San Francisco";
-    src: url("SF-UI-Display-Regular.otf");
+    src: url("fonts/SF-UI-Display-Regular.otf");
 }
 
 body {
     margin: 0;
     font-family: "San Francisco", sans-serif;
+    display: flex;
+    justify-content: center;
 }
 
 .calc-container {
@@ -31,6 +33,7 @@ body {
     font-size: 70px;
     font-weight: lighter;
     padding-right: 15px;
+    overflow: hidden;
 }
 
 .buttons {
@@ -56,17 +59,33 @@ button {
 }
 
 .divide {
-    padding-bottom: 4px;
+    padding-bottom: 6px;
     font-size: 40px;
 }
 
 .multiply {
-    padding-top: 3px;
-    padding-right: 8px;
+    padding-top: 2px;
+    padding-right: 7px;
     font-size: 70px;
 }
 
+.subtract {
+    padding-bottom: 6px;
+    font-size: 40px;
+}
+
+.add {
+    font-size: 35px;
+    padding-bottom: 6px;
+}
+
+.equal {
+    padding-bottom: 4px;
+    font-size: 40px;
+}
+
 .plus-minus {
+    padding-bottom: 5px;
 }
 
 #zero {
@@ -81,15 +100,28 @@ button {
     color: white;
 }
 
+.number:hover, .decimal:hover {
+    background-color: rgb(95, 96, 95);
+}
+
 .operator {
     background-color: rgb(241, 135, 12);
     color: white;
 }
 
-/*.operator a:hover {
-    background-color: red;
-}*/
+.operator:hover {
+    background-color: rgb(249, 187, 122);
+}
 
 .function {
     background: rgb(142, 142, 142);
+}
+
+.function:hover {
+    background-color: rgb(207, 207, 207);
+}
+
+.selected {
+    background-color: rgb(254, 254, 254);
+    color: rgb(252, 141, 15);
 }
