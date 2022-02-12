@@ -53,34 +53,36 @@ function appendDisplay (digit, convert) {
         showDisplay('Error');
         return;
     }
-    console.log(display + ' ' + total);
 }
 
 function clearDisplay () {
     showDisplay('');
-    console.log('Cleared display temporarily!');
 }
 
 const clearButton = document.querySelector('.clear');
-clearButton.addEventListener('click', () => {
+
+clearButton.addEventListener('click', handleClearClick
+);
+
+function handleClearClick () {
     setDisplay(0);
     total = 0;
+    selectButton(lastOperation, 'remove');
     lastOperation = undefined;
-    console.log('Cleared display!');
-    }
-);
+}
 
 numberButtons.forEach(button => button.addEventListener('click', handleNumberClick));
 
-function handleNumberClick (e) {
-    appendDisplay(Number(this.textContent));
+function handleNumberClick (e, n) {
+    if (!n) n = this.textContent;
+    appendDisplay(Number(n));
 }
 
 const opeatorButtons = document.querySelectorAll('.operator');
 
 opeatorButtons.forEach(button => button.addEventListener('click', handleOperatorClick));
 
-function handleOperatorClick (e) {
+function handleOperatorClick (e, operator) {
     if (!clearOnNextInput) {
         switch (lastOperation) {
             case 'add':
@@ -104,23 +106,46 @@ function handleOperatorClick (e) {
     setDisplay(total);
     clearOnNextInput = true;
 
-    if (Array.from(this.classList).includes('add')) {
-        lastOperation = 'add';
-    }
-    else if (Array.from(this.classList).includes('subtract')) {
-        lastOperation = 'subtract';
-    }
-    else if (Array.from(this.classList).includes('multiply')) {
-        lastOperation = 'multiply';
-    }
-    else if (Array.from(this.classList).includes('divide')) {
-        lastOperation = 'divide';
+    if (!operator) {
+        if (Array.from(this.classList).includes('add')) {
+            lastOperation = 'add';
+        }
+        else if (Array.from(this.classList).includes('subtract')) {
+            lastOperation = 'subtract';
+        }
+        else if (Array.from(this.classList).includes('multiply')) {
+            lastOperation = 'multiply';
+        }
+        else if (Array.from(this.classList).includes('divide')) {
+            lastOperation = 'divide';
+        }
+        else {
+            selectButton(lastOperation, 'remove');
+            lastOperation = undefined;
+        }
     }
     else {
-        lastOperation = undefined;
+        if (operator === '+') {
+            lastOperation = 'add';
+        }
+        else if (operator === '-') {
+            lastOperation = 'subtract';
+        }
+        else if (operator === '*') {
+            lastOperation = 'multiply';
+        }
+        else if (operator === '/') {
+            lastOperation = 'divide';
+        }
+        else if (operator === '=' || operator === 'Enter') {
+            selectButton(lastOperation, 'remove');
+            lastOperation = undefined;
+        }
+        else {
+            return;
+        }
     }
     selectButton(lastOperation, 'add');
-    console.log(display + ' ' + total);
 }
 
 const plusMinusButton = document.querySelector('.plus-minus');
@@ -132,7 +157,6 @@ function handlePMClick () {
     if (lastOperation === undefined) {
         total = display;
     }
-    console.log(display + ' ' + total);
 }
 
 const percentButton = document.querySelector('.percent');
@@ -144,7 +168,6 @@ function handlePercentClick () {
     if (lastOperation === undefined) {
         total = display;
     }
-    console.log(display + ' ' + total);
 }
 
 const decimalButton = document.querySelector('.decimal');
@@ -156,3 +179,11 @@ function handleDecimalClick () {
         appendDisplay('.', true);
     }
 }
+
+document.addEventListener('keydown', e => {
+    if (e.key === '.') handleDecimalClick();
+    else if (!isNaN(Number(e.key))) handleNumberClick(null, e.key);
+    else if (e.key === '%') handlePercentClick();
+    else if (e.key === 'Backspace') handleClearClick();
+    else handleOperatorClick(null, e.key);
+})
